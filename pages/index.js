@@ -1,46 +1,51 @@
-import React,{useEffect} from 'react'
-import Link from 'next/link';
-import {useAuth} from '../auth';
-import Container from '../components/Container';
-import {useRouter} from 'next/router';
-import {Flex, Box, Button, Text, Heading, Stack} from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react';
+import firebaseCLient from '../firebaseCLient';
 import firebase from 'firebase';
+import 'firebase/auth';
+import 'firebase/firestore';
+import Link from 'next/Link';
+import Layout from '../components/Container';
+
+import { Box, Flex, Text, Button, Input, FormControl, FormLabel, FormHelperText, Stack, Heading, useToast, Linkst } from "@chakra-ui/react";
+
+function renderTurf(){
+    const [Link, setLink] = useState([]);
+
+    useEffect(() => {
+        var db = firebase.firestore();
+        var ref = db.collection('turfData');
+
+        ref.onSnapshot((snapshot) => {
+            const newTurfs = snapshot.docs.map((doc) => ({
+                id:doc.id,
+                ...doc.data()
+            }))
+
+            setLink(newTurfs);
+        })
+    }, []);
+
+    return Link
+}
 
 export default function Home() {
-  
-  const { user } = useAuth();
-
-
-  // firebase.auth().languageCode = 'it';
-// To apply the default browser preference instead of explicitly setting it.
-// firebase.auth().useDeviceLanguage();
+  firebaseCLient();
+  const turfs = renderTurf();
 
   return (
-    <Container>
+    <Layout>
       <Flex>
         <Box w={500} p={4} my={12} mx='auto'>
-          <Heading as='h2' textAlign='center'>
-            Welcome to the home page.
-          </Heading>
-          <Text mt={8} textAlign='center'>
-            {`User ID: ${user ? user.uid : "No user signed in"
-            }`}
-          </Text>
-          <Stack 
-          mt={8} alignItems='center' justifyContent='center' inInline width='100%'>
-            <Button variant='solid' variantColor='blue' width='100%' >
-              <Link href='/authenticated'>
-                <a isDisabled={!user}> Go to authentication route</a>
-              </Link>
-            </Button>
-            <Button variant='solid' variantColor='green' width='100%' >
-              <Link href='/login'>
-                <a> Login</a>
-              </Link>
-            </Button>
-          </Stack>
-        </Box>
-      </Flex>
-    </Container>
+          {turfs.map((item) =>(
+            <Link href={'/' + item.id} key={item.id}>
+            <Box w={300} p={4} my={12} mx='auto' bg='tomato'>
+              <Text>{item.name}</Text>
+              <Text>{item.location}</Text>
+            </Box>
+            </Link>
+            ))}
+            </Box>
+        </Flex>
+    </Layout>
   )
 }

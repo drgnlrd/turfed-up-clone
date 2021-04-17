@@ -59,9 +59,7 @@ export default function signup() {
     } 
     else {
         alert('wrong otp!!');
-    }
-
-    
+    }    
 }
 
     return(

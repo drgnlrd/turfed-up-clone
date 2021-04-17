@@ -33,6 +33,7 @@ import {
   FaSun,
   FaMoon,
 } from 'react-icons/fa'
+import firebase from 'firebase';
   
   export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure();
@@ -95,7 +96,10 @@ import {
                 fontSize={'sm'}
                 fontWeight={400}
                 variant={'link'}
-                href={'#'}>
+                onClick={async () => {
+                        await firebase.auth().signOut();
+                        window.location.href = '/login' 
+                        }}>
                 Sign Out
             </Button>
           </Stack>

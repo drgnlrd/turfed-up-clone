@@ -6,6 +6,7 @@ import 'firebase/auth';
 import firebase from 'firebase';
 import 'firebase/firestore';
 import {Box, Flex, Text, Heading, Button, Link} from '@chakra-ui/react';
+import Layout from '../components/Container';
 
 
 function renderTurf(email){
@@ -40,6 +41,7 @@ const myBookings = ({email}) => {
     console.log(turf);
 
     return (
+        <Layout>
         <Flex>
             <Box w={600} p={4} my={12} mx='auto'>
                 <Text>Your bookings:</Text>
@@ -70,6 +72,7 @@ const myBookings = ({email}) => {
 
             </Box>
         </Flex>
+        </Layout>
     )
 
 }

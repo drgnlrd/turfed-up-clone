@@ -6,6 +6,7 @@ import 'firebase/auth';
 import firebase from 'firebase';
 import 'firebase/firestore';
 import {Box, Flex, Text, Heading, Button, Link, FormControl, FormLabel, Input, Avatar} from '@chakra-ui/react';
+import Layout from '../components/Container';
 
 function renderUser(email){
     const [Link, setLink] = useState([]);
@@ -52,6 +53,7 @@ const myAccount = ({email}) => {
 
 
     return(
+        <Layout>
         <Flex>
         <Box>
             <Text>My Account</Text>
@@ -104,6 +106,7 @@ const myAccount = ({email}) => {
                 }
             </Box>
         </Flex>
+        </Layout>
     )
 }
 

@@ -1,3 +1,12 @@
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import firebaseClient from '../firebaseClient';
+import firebase from 'firebase';
+import 'firebase/auth';
+import 'firebase/firestore';
+import emailjs from 'emailjs-com';
+import otpGenerator from 'otp-generator';
+
 import {
     Box,
     Flex,
@@ -13,34 +22,63 @@ import {
     useBreakpointValue,
     IconProps,
     Icon,
+    FormControl, FormLabel, FormHelperText, useToast
   } from '@chakra-ui/react';
 
-
-  
-  const avatars = [
-    {
-      name: 'Ryan Florence',
-      url: 'https://bit.ly/ryan-florence',
-    },
-    {
-      name: 'Segun Adebayo',
-      url: 'https://bit.ly/sage-adebayo',
-    },
-    {
-      name: 'Kent Dodds',
-      url: 'https://bit.ly/kent-c-dodds',
-    },
-    {
-      name: 'Prosper Otemuyiwa',
-      url: 'https://bit.ly/prosper-baba',
-    },
-    {
-      name: 'Christian Nwamba',
-      url: 'https://bit.ly/code-beast',
-    },
-  ];
   
   export default function JoinOurTeam() {
+
+    const [email, setEmail] = useState("");
+    const [pass, setPass] = useState("");
+    const [name, setName] = useState("");
+    const [mobile, setMobile] = useState("");
+    const [otp, setOtp] = useState("");
+    const [verifyId, setVerifyId] = useState("");
+
+    var db = firebase.firestore();
+    firebaseClient();
+    const toast = useToast();
+
+    useEffect(() => {
+        setVerifyId(otpGenerator.generate(6, { upperCase: false, specialChars: false, alphabets: false }));
+    }, [])
+
+    
+    const emailToUser = {
+        to_name : name,
+        to_email : email,
+        message: verifyId,
+   }
+
+    const handleSubmit = async() => {
+      console.log(verifyId);
+      if(otp == verifyId) {
+          await firebase.auth().createUserWithEmailAndPassword(email,pass).then(() => {
+              db.collection('userData').add({
+                  name: name,
+                  email: email,
+                  mobile: mobile
+              })
+          })
+          .then(function() {
+              window.location.href = '/'
+          }).catch(function (error) {
+              const message = error.message;
+              toast({
+                  title: 'An error occured',
+                  descripion: message,
+                  status: 'error',
+                  duration: 9000,
+                  isClosed: true
+              });
+          });
+          console.log('otp verified');
+      } 
+      else {
+          alert('wrong otp!!');
+      }    
+  }
+
     return (
       <Box minH={'100vh'} position={'relative'} bg={['url("/signbg.jpg")','none']}>
         <Container
@@ -118,8 +156,9 @@ import {
             </Stack>
             <Box as={'form'} mt={10} >
               <Stack spacing={4}>
+              <FormControl isRequired>
                 <Input
-                  placeholder="Firstname"
+                  placeholder="Name"
                   bg={'gray.100'}
                   border={0}
                   color={'gray.500'}
@@ -132,24 +171,36 @@ import {
                     value={name}
                     aria-describedby='name-helper-text'
                 />
+                </FormControl>
+                <FormControl isRequired>
                 <Input
-                  placeholder="Firstname"
+                  placeholder="Mobile Number"
                   bg={'gray.100'}
                   border={0}
                   color={'gray.500'}
                   _placeholder={{
                     color: 'gray.500',
                   }}
+                  onChange={(e) => setMobile(e.target.value)}
+                    type='text' id='pass' value={mobile}
+                    aria-describedby='mobile-helper-text'
                 />
+                </FormControl>
+                <FormControl isRequired>
                 <Input
-                  placeholder="Firstname"
+                  placeholder="Password"
                   bg={'gray.100'}
                   border={0}
                   color={'gray.500'}
                   _placeholder={{
                     color: 'gray.500',
                   }}
+                  onChange={(e) => setPass(e.target.value)}
+                    type='password' id='pass' value={pass}
+                    aria-describedby='password-helper-text'
                 />
+                </FormControl>
+                <FormControl isRequired>
                 <Input
                   placeholder="Email"
                   bg={'gray.100'}
@@ -164,7 +215,8 @@ import {
                     value={email}
                     aria-describedby='email-helper-text'
                 />
-                
+                </FormControl>
+                <FormControl isRequired>
                 <Input
                   placeholder="Generate OTP"
                   bg={'gray.100'}
@@ -179,6 +231,7 @@ import {
                     value={otp}
                     aria-describedby='otp-helper-text'
                 />
+                </FormControl>
               </Stack>
               <Button
                 fontFamily={'heading'}
@@ -189,9 +242,41 @@ import {
                 _hover={{
                   bgGradient: 'linear(to-r, red.400,pink.400)',
                   boxShadow: 'xl',
+                }}
+                isDisabled={email === '' || pass === '' || name === '' || mobile === ''} 
+                onClick = {() => {
+                    emailjs.send('service_z6cltgd', 'template_jtkla8g', emailToUser, 'user_2aLKtYP7rnIjbt16dV8lj')
                 }}>
-                Submit
+                Generate OTP
               </Button>
+              <Button
+              fontFamily={'heading'}
+                mt={8}
+                w={'full'}
+                bgGradient="linear(to-r, red.400,pink.400)"
+                color={'white'}
+                _hover={{
+                  bgGradient: 'linear(to-r, red.400,pink.400)',
+                  boxShadow: 'xl',
+                }}
+                isDisabled={email === '' || pass === '' || name === '' || mobile === '' || otp === '' }
+                onClick={handleSubmit}>
+                  Sign In
+              </Button>
+              <Button
+              fontFamily={'heading'}
+                mt={8}
+                w={'full'}
+                bgGradient="linear(to-r, red.400,pink.400)"
+                color={'white'}
+                _hover={{
+                  bgGradient: 'linear(to-r, red.400,pink.400)',
+                  boxShadow: 'xl',
+                }}>
+                  <Link href='./login'>
+                    <a>Login</a>
+                  </Link>
+                </Button>
             </Box>
             form
           </Stack>

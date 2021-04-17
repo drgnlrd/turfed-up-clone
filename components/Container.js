@@ -5,7 +5,7 @@ import {useAuth} from '../auth';
 import {useRouter} from 'next/router';
 import WithSubnavigation from './Nav';
 
-export default function Container ({children}){
+export default function Layout ({children}){
 
     const { user } = useAuth();
     const router = useRouter();
