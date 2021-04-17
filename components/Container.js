@@ -3,6 +3,7 @@ import {Flex} from '@chakra-ui/react';
 import firebase from 'firebase';
 import {useAuth} from '../auth';
 import {useRouter} from 'next/router';
+import WithSubnavigation from './Nav';
 
 export default function Container ({children}){
 
@@ -18,7 +19,8 @@ export default function Container ({children}){
 
     return(
         <>
-            <Flex as='main' justifyContent='center' flexDirection='column' px={8}>
+            <WithSubnavigation />
+            <Flex as='main' mt={'70px'} justifyContent='center' flexDirection='column' px={8}>
                 {children}
             </Flex>
         </>
