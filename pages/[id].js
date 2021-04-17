@@ -3,14 +3,15 @@ import firebaseCLient from '../firebaseCLient';
 import firebase from 'firebase';
 import 'firebase/auth';
 import 'firebase/firestore';
-import nookies from "nookies";
+import nookies,{parseCookies, setCookie} from "nookies";
 import {verifyIdToken} from '../firebaseAdmin';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
-import StripeCheckout from 'react-stripe-checkout';
 import emailjs from 'emailjs-com';
 import Layout from '../components/Container';
+import CheckoutForm from "../components/CheckoutForm";
+import Stripe from "stripe";
 
 
 
@@ -19,19 +20,16 @@ import { Box, Flex, Text, Button, Input, FormControl, FormLabel, FormHelperText,
                 AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogCloseButton, AlertDialogBody,
                 AlertDialogFooter, useDisclosure  } from "@chakra-ui/react";
 
-function Details ({name,location,bookings,id,url,email,price,adminEmail}) {
+function Details ({name,location,bookings,id,url,email,price,adminEmail,paymentIntent}) {
     
     firebaseCLient();
     const [ date1, SetDate1 ] = useState('');
     const [fetchedTime, setFetchedTime] = useState([]);
     const [p, setP] = useState(0);
     const [usersLink, setUsersLink] = useState([]);
-    const [timingTwo, setTimingTwo] = useState(0);
+    const [paymentDone,setPaymentDone ] = useState(0);
 
     var db = firebase.firestore();
-
-    // const pastDate = moment(new Date()).subtract(10, 'days')._d;
-    // const currentDate = moment(new Date())._d;
 
     const existingTimes = [
         "10:00-11:00",
@@ -77,17 +75,17 @@ function Details ({name,location,bookings,id,url,email,price,adminEmail}) {
             }))
             setUsersLink(newUsers);
         })
-        
-        // console.log(usersLink[0].name);
-
     },[date1])
 
+    if(paymentDone == 1) {
+        setPaymentDone(0);
+        handleSubmit();
+    }
 
 
-    const handleSubmit = () =>{
+    function handleSubmit () {
     const useMe = document.getElementById('time').selectedOptions[0].value
-    const useMe2 = document.getElementById('time2').selectedOptions[0].value
-        console.log('useMe' + useMe, useMe2);
+        console.log('useMe' + useMe);
 
     const emailToUser = {
          to_name : usersLink[0].name,
@@ -168,38 +166,6 @@ function Details ({name,location,bookings,id,url,email,price,adminEmail}) {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const cancelRef = React.useRef();
-
-    // function ExtraTime() {
-        
-    //     if(timingTwo == 1){
-    //         const useMe2 = document.getElementById('time').selectedOptions[0].value
-    //     return(
-    //             <FormControl>
-    //             <Select id={'time2'}>
-    //                     {existingTimes.map((time, id)=>{
-    //                         if(fetchedTime.includes(time)){
-    //                             return(
-    //                                 <option key={id} value={time} style={{ background: 'lightgray'}} disabled >{time} &nbsp;&nbsp; -booked</option>
-    //                             )
-    //                         }
-    //                         else if(time == useMe2){
-    //                             return(
-    //                                 <option key={id} value={time} style={{ background: 'lightgray'}} disabled >{time} &nbsp;&nbsp; -selected</option>
-    //                             )
-    //                         }
-    //                         else {
-    //                         return(
-    //                             <option key={id} value={time}>{time}</option>
-    //                         ) }
-    //                     })}        
-    //                 </Select>
-    //                 </FormControl>
-            
-    //     )
-    //     }
-    //     else return null
-    // }
-  
     
     return(
         <Layout>
@@ -220,14 +186,7 @@ function Details ({name,location,bookings,id,url,email,price,adminEmail}) {
                             ) }
                         })}        
                     </Select>
-                    {/* <Button onClick={()=> setTimingTwo(1)}>
-                        Add another slot?
-                    </Button>
                     
-                        <ExtraTime /> */}
-                    
-                    <StripeCheckout stripeKey="pk_test_51Ifj2ESIx03WM52JePxXMsPgAvhZ9fuviLPJH6qZYxpHENXCFM5YX3xakkscxUbbYtqFAwxZkGeoLxYBynifXmaD00V1dUxera"
-                    token ={handleSubmit} amount = '69'/>
                     <Button onClick={onOpen} isDisabled={ date1 === '' } >Book Now</Button>
                     <AlertDialog
                         motionPreset="slideInBottom"
@@ -243,13 +202,11 @@ function Details ({name,location,bookings,id,url,email,price,adminEmail}) {
                         <AlertDialogCloseButton />
                         <AlertDialogBody>
                             Are you sure you want to proceed with booking? Once booked it wont be cancelled.
+                            <CheckoutForm paymentIntent={paymentIntent} setPaymentDone={setPaymentDone}/>
                         </AlertDialogBody>
                         <AlertDialogFooter>
                             <Button ref={cancelRef} onClick={onClose}>
                             No
-                            </Button>
-                            <Button colorScheme="green" ml={3} onClick={handleSubmit} >
-                            Yes
                             </Button>
                         </AlertDialogFooter>
                         </AlertDialogContent>
@@ -281,9 +238,19 @@ export const getServerSideProps = async (context) =>{
         content['adminEmail'] = result.data().email;
     });
 
-    return {
+    //stripe
+    const stripe = new Stripe('sk_test_51Ifj2ESIx03WM52JVP64h9S6mjSJlSGIp2V9SqHGbMUV6JBINUiur7pYZKOZVFUu2f6KoFOjCQsqGBq88h3NI7kv00HRMscnis');
+  
+    let paymentIntent;
+
+    const { paymentIntentId } = await parseCookies(context);
+  
+    if (paymentIntentId) {
+      paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId)
+      return {
         props: {
-            name: content.name,
+          paymentIntent,
+          name: content.name,
             location: content.location,
             bookings: content.bookings,
             id: context.query.id,
@@ -291,12 +258,29 @@ export const getServerSideProps = async (context) =>{
             email: email,
             price: content.price,
             adminEmail: content.adminEmail,
-            // userId: content.userId,
-            // userBookings: content.userBookings,
-            // any: content.any
         }
+      };
     }
-
+    paymentIntent = await stripe.paymentIntents.create({
+        amount: 1000,
+        currency: "inr"
+      });
+    
+      setCookie(context, "paymentIntentId", paymentIntent.id);
+    
+      return {
+        props: {
+          paymentIntent: paymentIntent,
+          name: content.name,
+            location: content.location,
+            bookings: content.bookings,
+            id: context.query.id,
+            url: content.imageUrl,
+            email: email,
+            price: content.price,
+            adminEmail: content.adminEmail,
+        }
+      };
 }
 
 export default Details;

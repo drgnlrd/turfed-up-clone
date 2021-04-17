@@ -5,7 +5,9 @@ import firebaseClient from '../firebaseClient';
 import 'firebase/auth';
 import firebase from 'firebase';
 import 'firebase/firestore';
-import {Box, Flex, Text, Heading, Button, Link, FormControl, FormLabel, Input, Avatar} from '@chakra-ui/react';
+import {Box, Flex, Text, Heading, Button, Link, FormControl, FormLabel, Input, Avatar, 
+    AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogCloseButton, AlertDialogBody,
+    AlertDialogFooter, useDisclosure, Select} from '@chakra-ui/react';
 import Layout from '../components/Container';
 
 function renderUser(email){
@@ -33,9 +35,8 @@ const myAccount = ({email}) => {
     const [mobile, setMobile] = useState("");
 
     const myUser = renderUser(email);
-
+    var db = firebase.firestore();
     const handleSubmit = () => {
-        var db = firebase.firestore();
         var ref = db.collection('userData');
         myUser.map(res=> {
             ref.doc(res.id).update({
@@ -44,13 +45,20 @@ const myAccount = ({email}) => {
             }).then(() =>{
                 alert('updated');
             })
-        })
-
-        
-        
+        })  
     }
 
+    const handleDelete = () => {
+        var ref = db.collection('userData');
+        myUser.map((res) => {
+            ref.doc(res.id).delete().then(()=> {
+                window.location.href = '/login'
+            })
+        })
+    }
 
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const cancelRef = React.useRef();
 
     return(
         <Layout>
@@ -64,7 +72,6 @@ const myAccount = ({email}) => {
                             <Text>Name: {res.name}</Text>
                             <Text>Email: {res.email}</Text>
                             <Text>Mobile: {res.mobile}</Text>
-                            <Avatar size='lg' name={res.name} src={'res.avatar'}></Avatar>
                         </Box>
                     ))
                 }
@@ -97,6 +104,9 @@ const myAccount = ({email}) => {
                     type='text' id='pass' value={mobile} placeholder={res.mobile}
                     aria-describedby='mobile-helper-text' />
                 </FormControl>
+                <FormControl isRequired>
+                </FormControl>
+
                     <Button onClick={handleSubmit} disabled={mobile === '' || name === ''}>
                         Update
                     </Button>
@@ -104,6 +114,34 @@ const myAccount = ({email}) => {
                     
                     ))
                 }
+                <Button onClick={onOpen}>
+                    Delete Account
+                </Button>
+                <AlertDialog
+                        motionPreset="slideInBottom"
+                        leastDestructiveRef={cancelRef}
+                        onClose={onClose}
+                        isOpen={isOpen}
+                        isCentered
+                    >
+                        <AlertDialogOverlay />
+
+                        <AlertDialogContent>
+                        <AlertDialogHeader>Delete Account?</AlertDialogHeader>
+                        <AlertDialogCloseButton />
+                        <AlertDialogBody>
+                            Are you sure you want to delete your account? Any pending bookings will still be valid.
+                        </AlertDialogBody>
+                        <AlertDialogFooter>
+                            <Button ref={cancelRef} onClick={onClose}>
+                            No
+                            </Button>
+                            <Button colorScheme="red" ml={3} onClick={handleDelete} >
+                            Yes
+                            </Button>
+                        </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
             </Box>
         </Flex>
         </Layout>

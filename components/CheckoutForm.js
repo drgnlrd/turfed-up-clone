@@ -2,7 +2,7 @@ import React,{useState} from "react";
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { destroyCookie } from "nookies";
 
-const CheckoutForm = ({ paymentIntent }) => {
+const CheckoutForm = ({ paymentIntent,setPaymentDone }) => {
 
 const [checkoutError, setCheckoutError] = useState();
 const [checkoutSuccess, setCheckoutSuccess] = useState();
@@ -28,6 +28,8 @@ const [checkoutSuccess, setCheckoutSuccess] = useState();
       if (status === "succeeded") {
         setCheckoutSuccess(true);
         destroyCookie(null, "paymentIntentId");
+        setPaymentDone(1);
+        
       }
     } catch (err) {
       alert(err.message);

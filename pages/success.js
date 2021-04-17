@@ -1,19 +1,15 @@
 import { Flex, Button, Box, Text } from '@chakra-ui/react';
-import Link from 'next/link';
+import Layout from '../components/Container';
 
 const success = () => {
     return (
+        <Layout>
         <Flex>
         <Text>
             Success!!!!
         </Text>
-        <Link href='/'>
-            <Button as='a'>
-                Back to Home
-            </Button>
-        </Link>
         </Flex>
-
+        </Layout>
     )
 }
 

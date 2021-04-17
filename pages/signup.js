@@ -40,7 +40,8 @@ export default function signup() {
             db.collection('userData').add({
                 name: name,
                 email: email,
-                mobile: mobile
+                mobile: mobile,
+                bookings:"",
             })
         })
         .then(function() {
