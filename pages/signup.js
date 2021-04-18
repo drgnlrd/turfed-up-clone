@@ -34,6 +34,21 @@ import {
     const [mobile, setMobile] = useState("");
     const [otp, setOtp] = useState("");
     const [verifyId, setVerifyId] = useState("");
+    const [random, setRandom] = useState(0);
+
+    const avatar = ['https://firebasestorage.googleapis.com/v0/b/turfedup-1a8ee.appspot.com/o/avatar%2F03408ed47e6eb2c1f94d98b888692a9a.png?alt=media&token=91f4222a-ace9-4035-a532-ed7dc6b9885e',
+                    'https://firebasestorage.googleapis.com/v0/b/turfedup-1a8ee.appspot.com/o/avatar%2F0DltHI.webp?alt=media&token=fb3b07b7-c029-413d-9d87-9081c3a03f34',
+                    'https://firebasestorage.googleapis.com/v0/b/turfedup-1a8ee.appspot.com/o/avatar%2F11f78ecb2d410be3c380b1013fa4ea3b.png?alt=media&token=e80110f7-7bc0-43a7-8788-0b15ff41840e',
+                    'https://firebasestorage.googleapis.com/v0/b/turfedup-1a8ee.appspot.com/o/avatar%2F4944.png?alt=media&token=03d43fda-bd17-4284-ab95-0c0d9f95263f',
+                    'https://firebasestorage.googleapis.com/v0/b/turfedup-1a8ee.appspot.com/o/avatar%2FNaruto%20.jpg?alt=media&token=e3db6fda-cd98-4b69-af43-77cff40920b1',
+                    'https://firebasestorage.googleapis.com/v0/b/turfedup-1a8ee.appspot.com/o/avatar%2Fanime-1.jpg?alt=media&token=4b45ab15-c93b-4eb1-b52f-88ec0f4c7b3e',
+                    'https://firebasestorage.googleapis.com/v0/b/turfedup-1a8ee.appspot.com/o/avatar%2Favatar2.png?alt=media&token=b597f9df-b934-4a3d-8399-b1741c4b7eda',
+                    'https://firebasestorage.googleapis.com/v0/b/turfedup-1a8ee.appspot.com/o/avatar%2Fimages.jfif?alt=media&token=ce48c75e-6047-4919-82af-4f5e81e18b80',
+                    'https://firebasestorage.googleapis.com/v0/b/turfedup-1a8ee.appspot.com/o/avatar%2Fmikasa.jpg?alt=media&token=48bc6188-af29-4e0a-bb35-57b0e064c00c',
+                    'https://firebasestorage.googleapis.com/v0/b/turfedup-1a8ee.appspot.com/o/avatar%2Fsakura.png?alt=media&token=b716e6b8-1d79-4e41-a8ba-7429f8487bb7',
+        ]
+
+        
 
     var db = firebase.firestore();
     firebaseClient();
@@ -41,6 +56,7 @@ import {
 
     useEffect(() => {
         setVerifyId(otpGenerator.generate(6, { upperCase: false, specialChars: false, alphabets: false }));
+         setRandom(Math.floor(Math.random() * avatar.length))
     }, [])
 
     
@@ -59,6 +75,7 @@ import {
                   email: email,
                   mobile: mobile,
                   bookings: [],
+                  avatar: avatar[random],
               })
           })
           .then(function() {
@@ -107,34 +124,6 @@ import {
             </Heading>
             <Stack direction={'row'} spacing={4} align={'center'}>
               
-              {/* <Text fontFamily={'heading'} fontSize={{ base: '4xl', md: '6xl' }}>
-                +
-              </Text>
-              <Flex
-                align={'center'}
-                justify={'center'}
-                fontFamily={'heading'}
-                fontSize={{ base: 'sm', md: 'lg' }}
-                bg={'gray.800'}
-                color={'white'}
-                rounded={'full'}
-                width={useBreakpointValue({ base: '44px', md: '60px' })}
-                height={useBreakpointValue({ base: '44px', md: '60px' })}
-                position={'relative'}
-                _before={{
-                  content: '""',
-                  width: 'full',
-                  height: 'full',
-                  rounded: 'full',
-                  transform: 'scale(1.125)',
-                  bgGradient: 'linear(to-bl, orange.400,yellow.400)',
-                  position: 'absolute',
-                  zIndex: -1,
-                  top: 0,
-                  left: 0,
-                }}>
-                YOU
-              </Flex> */}
             </Stack>
           </Stack>
           <Stack 
@@ -440,20 +429,6 @@ import {
                 onClick={handleSubmit}>
                   Sign In
               </Button>
-              {/* <Button
-              fontFamily={'heading'}
-                mt={8}
-                w={'full'}
-                bgGradient="linear(to-r, red.400,pink.400)"
-                color={'white'}
-                _hover={{
-                  bgGradient: 'linear(to-r, red.400,pink.400)',
-                  boxShadow: 'xl',
-                }}>
-                  <Link href='./login'>
-                    <a>Login</a>
-                  </Link>
-                </Button> */}
             </Box>
           </Stack>
         </Flex>

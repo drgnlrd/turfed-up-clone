@@ -69,9 +69,10 @@ const myAccount = ({email}) => {
                 {
                     myUser.map((res, id) =>(
                         <Box key={id}>
+                            <Avatar src={res.avatar} size="xl"></Avatar>
                             <Text>Name: {res.name}</Text>
                             <Text>Email: {res.email}</Text>
-                            <Text>Mobile: {res.mobile}</Text>
+                            <Text>Mobile: {res.mobile}</Text> 
                         </Box>
                     ))
                 }
