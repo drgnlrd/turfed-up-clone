@@ -20,8 +20,9 @@ import { Box, Flex, Text, Button, Input, FormControl, FormLabel, FormHelperText,
                 AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogCloseButton, AlertDialogBody,
                 AlertDialogFooter, useDisclosure  } from "@chakra-ui/react";
 
-function Details ({name,location,bookings,id,url,email,price,adminEmail,paymentIntent}) {
+function Details ({name,location,bookings,id,url,email,price,adminEmail,paymentIntent, facilities}) {
     
+    console.log(facilities);
     firebaseCLient();
     const [ date1, SetDate1 ] = useState('');
     const [fetchedTime, setFetchedTime] = useState([]);
@@ -228,6 +229,7 @@ export const getServerSideProps = async (context) =>{
     const cookies = nookies.get(context);
     const token = await verifyIdToken(cookies.token);
     const {email} = token;
+    const facilities = [];
 
     await db.collection('turfData').doc(context.query.id).get().then(result => {
         content['name'] = result.data().name;
@@ -236,6 +238,7 @@ export const getServerSideProps = async (context) =>{
         content['imageUrl'] = result.data().imageUrl;
         content['price'] = result.data().price;
         content['adminEmail'] = result.data().email;
+        facilities[0] = result.data().facilities;
     });
 
     //stripe
@@ -258,6 +261,7 @@ export const getServerSideProps = async (context) =>{
             email: email,
             price: content.price,
             adminEmail: content.adminEmail,
+            facilities: facilities
         }
       };
     }
@@ -279,6 +283,7 @@ export const getServerSideProps = async (context) =>{
             email: email,
             price: content.price,
             adminEmail: content.adminEmail,
+            facilities: facilities,
         }
       };
 }
