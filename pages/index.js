@@ -55,29 +55,30 @@ export default function Home() {
   return (
     <Layout>
       <Flex>
-        <Box w={500} p={4} rounded={'20'}my={12} mx='auto'>
+        <Box w={500} p={8} rounded={'20'}my={12} mx='auto'>
           {turfs.map((item) =>(
             <Box
               key={item.id}
               w="full"
               mx="auto"
               mb={10}
-              boxShadow={useColorModeValue('0 0px 32px 0 rgba( 255,255,255, 0.07 )','0 0px 32px 0 rgba( 255,255,255, 0.1 )')}
-              bg={useColorModeValue('rgba( 100, 100, 100, 0.25 )','rgba( 255, 255, 255, 0.25 )')}
+              boxShadow={useColorModeValue('0 0px 60px 0 rgba( 0,0,0, 0.4 )','0 0px 60px 0 rgba( 255,255,255, 0.08 )')}
+              bg={useColorModeValue('rgba( 100, 100, 100, 0.25 )','rgba( 10, 37, 67, 0.05 )')}
+              border={'1px solid rgba(10,39,45,0.4)'}
               rounded="lg"
               overflow="hidden"
             >
               <Image
                 w="full"
-                h={56}
-                fit="cover"
+                h={150}
+                objectFit="cover"
                 objectPosition="center"
                 src={item.imageUrl}
                 alt="turf"
                 opacity={'0.7'}
               />
 
-              <Flex alignItems="center" px={6} justify={'space-between'} py={3} bg={useColorModeValue('rgba( 100, 100, 100, 0.85 )','rgba( 0, 0, 0, 0.45 )')}>
+              <Flex alignItems="center" px={6} justify={'space-between'} py={3} bg={useColorModeValue('rgba( 100, 100, 100, 0.85 )','rgba(  0,0,0, 0.35 )')}>
                 <Box>
                   <Text color="white" fontWeight="bold" fontSize="lg">
                   {item.name}
