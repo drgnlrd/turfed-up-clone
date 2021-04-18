@@ -17,3 +17,9 @@ body {
   backdrop-filter: blur( 4px );
   -webkit-backdrop-filter: blur( 4px );
 }
+
+.main-bg{
+  background: url('/images/macbg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
