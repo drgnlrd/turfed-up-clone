@@ -22,7 +22,7 @@ import {
     useBreakpointValue,
     IconProps,
     Icon,
-    FormControl, FormLabel, FormHelperText, useToast
+    FormControl, FormLabel, FormHelperText, useToast, Image, useColorModeValue, Spacer
   } from '@chakra-ui/react';
 
   
@@ -81,22 +81,26 @@ import {
   }
 
     return (
-      <Box minH={'100vh'} position={'relative'} bg={['url("/signbg.jpg")','none']}>
+      <Box minH={'100vh'} position={'relative'} bg={['url("/signbg.jpg") fixed','none']} >
         <Container
           as={SimpleGrid}
           maxW={'7xl'}
           columns={{ base: 1, md: 2 }}
           spacing={{ base: 10, lg: 32 }}
-          py={{ base: 10, sm: 20, lg: 32 }}>
+          py={{ base: 10, sm: 20, lg: 32 }}
+          
+          bgSize={'100%'} 
+          minH={'100vh'} display={{base: 'block', md: 'none'}} >
           <Stack spacing={{ base: 10, md: 20 }}>
             <Heading
               lineHeight={1.1}
               fontSize={{ base: '5xl', sm: '4xl', md: '5xl', lg: '6xl' }}
-              zIndex={'10'}>
+              zIndex={'10'}
+              >
               Lets Get{' '}
               <Text
                 as={'span'}
-                bgGradient="linear(to-r, red.400,pink.400)"
+                bgGradient="linear(to-r, red.700, red.500 ,orange.400)"
                 bgClip="text">
                 Turfed Up!
               </Text>
@@ -133,22 +137,26 @@ import {
               </Flex> */}
             </Stack>
           </Stack>
+          <Stack 
+              bg={'white'}
+              h={'100%'}
+              w={'100%'}
+          >
+
+          </Stack>
           <Stack
-            bg={'gray.50'}
-            rounded={'xl'}
-            p={{ base: 4, sm: 6, md: 8 }}
-            spacing={{ base: 8 }}
-            maxW={{ lg: 'lg' }}
-            boxShadow="lg">
+            display={{base: 'flex', md: 'none'}}>
+            <Box className={'glass-mobile'} h={'100%'} w={'100%'} bg={'rgba( 0, 0, 0, 0.65 )'} boxShadow={'0 8px 32px 0 rgba( 0,0,0, 0.47 )'} rounded={'10px'} p={10} > 
             <Stack spacing={4}>
               <Heading
                 color={'gray.800'}
                 lineHeight={1.1}
-                fontSize={{ base: '2xl', sm: '3xl', md: '4xl' }}>
-                Sign Up
+                fontSize={{ base: '2xl', sm: '3xl', md: '4xl' }}
+                color={useColorModeValue('gray.800','white')}>
+                Sign Up&nbsp;
                 <Text
                   as={'span'}
-                  bgGradient="linear(to-r, red.400,pink.400)"
+                  bgGradient="linear(to-r, red.700, red.500 ,orange.400)"
                   bgClip="text">
                   !
                 </Text>
@@ -238,10 +246,10 @@ import {
                 fontFamily={'heading'}
                 mt={8}
                 w={'full'}
-                bgGradient="linear(to-r, red.400,pink.400)"
+                bgGradient="linear(to-r, red.500 ,orange.400)"
                 color={'white'}
                 _hover={{
-                  bgGradient: 'linear(to-r, red.400,pink.400)',
+                  bgGradient: 'linear(to-r, red.600 ,orange.500)',
                   boxShadow: 'xl',
                 }}
                 isDisabled={email === '' || pass === '' || name === '' || mobile === ''} 
@@ -254,17 +262,185 @@ import {
               fontFamily={'heading'}
                 mt={8}
                 w={'full'}
-                bgGradient="linear(to-r, red.400,pink.400)"
+                bgGradient="linear(to-r, red.500 ,orange.400)"
                 color={'white'}
                 _hover={{
-                  bgGradient: 'linear(to-r, red.400,pink.400)',
+                  bgGradient: 'linear(to-r, red.600 ,orange.500)',
                   boxShadow: 'xl',
                 }}
                 isDisabled={email === '' || pass === '' || name === '' || mobile === '' || otp === '' }
                 onClick={handleSubmit}>
                   Sign In
               </Button>
+              <Box alignSelf={'end'} >
+                <br/>
+              <Text fontWeight={'600'} color={'white'} >Already have an account?</Text>
+              <Link href={'/login'} >
+                <Text color={'white'}  textDecor={'underline'} cursor={'pointer'} >Sign In</Text>
+              </Link>
+            </Box>
+            </Box>
+            </Box>
+          </Stack>
+        </Container>
+        <Box display={{base: 'none', md: 'block'}} >
+        <Stack minH={'100vh'} diplay={{base:'none',md: 'block'}} direction={{ base: 'column', md: 'row' }}>
+        
+        <Flex flex={1} bg={'url("/images/wallpapersign.jpg") no-repeat'} bgSize={'cover'} rounded={'0px 30px 30px 0px'} p={10} justifyContent={'center'} alignItems={'center'} >
+          <Box className={'glass'} h={'100%'} w={'80%'} bg={'rgba( 0, 0, 0, 0.35 )'} boxShadow={'0 8px 32px 0 rgba( 0,0,0, 0.47 )'} rounded={'10px'} p={10} > 
+            <Stack direction={'column'} justifyContent={'space-between'} h={'100%'} >
+          <Heading
+              lineHeight={1.1}
+              fontSize={{ base: '5xl', sm: '4xl', md: '5xl', lg: '6xl' }}
+              zIndex={'10'}
+              color={'white'}
+              >
+              Lets Get{' '}
+              <Text
+                as={'span'}
+                bgGradient="linear(to-r, red.700, red.500 ,orange.400)"
+                bgClip="text">
+                Turfed Up!
+              </Text>
+            </Heading>
+            <Box alignSelf={'end'} >
+              <Text fontWeight={'600'} color={'white'} >Already have an account?</Text>
+              <Link href={'/login'} >
+                <Text color={'white'} textDecor={'underline'} cursor={'pointer'} >Sign In</Text>
+              </Link>
+            </Box>
+            </Stack>
+          </Box>
+        </Flex>
+        <Flex p={8} flex={1} align={'center'} justify={'center'}>
+          <Stack spacing={6} w={'full'} maxW={'lg'}>
+            
+            <Box as={'form'} mt={10} p={10} boxShadow={'md'} >
+            <Stack mb={8}>
+              <Heading
+                color={'gray.800'}
+                lineHeight={1.1}
+                fontSize={{ base: '2xl', sm: '3xl', md: '4xl' }}
+                color={useColorModeValue('gray.800','white')}>
+                Sign Up&nbsp;
+                <Text
+                  as={'span'}
+                  bgGradient="linear(to-r, red.700, red.500 ,orange.400)"
+                  bgClip="text">
+                  !
+                </Text>
+              </Heading>
+              
+            </Stack>
+              <Stack spacing={4}>
+              <FormControl isRequired>
+                <Input
+                  placeholder="Name"
+                  bg={'gray.100'}
+                  border={0}
+                  color={'gray.500'}
+                  _placeholder={{
+                    color: 'gray.500',
+                  }}
+                  onChange={(e) => setName(e.target.value)}
+                    type='input' 
+                    id='name' 
+                    value={name}
+                    aria-describedby='name-helper-text'
+                />
+                </FormControl>
+                <FormControl isRequired>
+                <Input
+                  placeholder="Mobile Number"
+                  bg={'gray.100'}
+                  border={0}
+                  color={'gray.500'}
+                  _placeholder={{
+                    color: 'gray.500',
+                  }}
+                  onChange={(e) => setMobile(e.target.value)}
+                    type='text' id='pass' value={mobile}
+                    aria-describedby='mobile-helper-text'
+                />
+                </FormControl>
+                <FormControl isRequired>
+                <Input
+                  placeholder="Password"
+                  bg={'gray.100'}
+                  border={0}
+                  color={'gray.500'}
+                  _placeholder={{
+                    color: 'gray.500',
+                  }}
+                  onChange={(e) => setPass(e.target.value)}
+                    type='password' id='pass' value={pass}
+                    aria-describedby='password-helper-text'
+                />
+                </FormControl>
+                <FormControl isRequired>
+                <Input
+                  placeholder="Email"
+                  bg={'gray.100'}
+                  border={0}
+                  color={'gray.500'}
+                  _placeholder={{
+                    color: 'gray.500',
+                  }}
+                  onChange={(e) => setEmail(e.target.value)}
+                    type='email' 
+                    id='emailAddress' 
+                    value={email}
+                    aria-describedby='email-helper-text'
+                />
+                </FormControl>
+                <FormControl isRequired>
+                <Input
+                  placeholder="Generate OTP"
+                  bg={'gray.100'}
+                  border={0}
+                  color={'gray.500'}
+                  _placeholder={{
+                    color: 'gray.500',
+                  }}
+                  onChange={(e) => setOtp(e.target.value)}
+                    type='text' 
+                    id='otp' 
+                    value={otp}
+                    aria-describedby='otp-helper-text'
+                />
+                </FormControl>
+              </Stack>
               <Button
+                fontFamily={'heading'}
+                mt={8}
+                w={'full'}
+                bgGradient="linear(to-r, red.500 ,orange.400)"
+                color={'white'}
+                _hover={{
+                  bgGradient: 'linear(to-r, red.600 ,orange.500)',
+                  boxShadow: 'xl',
+                }}
+                isDisabled={email === '' || pass === '' || name === '' || mobile === ''} 
+                onClick = {() => {
+                    emailjs.send('service_z6cltgd', 'template_jtkla8g', emailToUser, 'user_2aLKtYP7rnIjbt16dV8lj')
+                }}>
+                Generate OTP
+              </Button>
+              <Button
+              fontFamily={'heading'}
+                mt={8}
+                w={'full'}
+                bgGradient="linear(to-r, red.500 ,orange.400)"
+                color={'white'}
+                _hover={{
+                  bgGradient: 'linear(to-r, red.600 ,orange.500)',
+                  boxShadow: 'xl',
+                }}
+                isDisabled={email === '' || pass === '' || name === '' || mobile === '' || otp === '' }
+                onClick={handleSubmit}>
+                  Sign In
+              </Button>
+              {/* <Button
               fontFamily={'heading'}
                 mt={8}
                 w={'full'}
@@ -277,16 +453,18 @@ import {
                   <Link href='./login'>
                     <a>Login</a>
                   </Link>
-                </Button>
+                </Button> */}
             </Box>
-            form
           </Stack>
-        </Container>
+        </Flex>
+      </Stack>
+      </Box>
         <Blur
           position={'absolute'}
           top={-10}
           left={-10}
           style={{ filter: 'blur(70px)' }}
+          display={'none'}
         />
       </Box>
     );

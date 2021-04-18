@@ -39,7 +39,7 @@ export default function Login(){
                     <FormLabel htmlFor='email'> Email Address</FormLabel>
                     <Input onChange={(e) => setEmail(e.target.value)}
                     type='email' id='emailAddress' value={email}
-                    aria-describedby='email-helper-text' />
+                    aria-describedby='email-helper-text' autoComplete={'email'} />
                 </FormControl>
                 <FormControl isRequired>
                     <FormLabel htmlFor='password'> Password</FormLabel>

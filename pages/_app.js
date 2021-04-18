@@ -2,6 +2,7 @@ import { AuthProvider } from '../auth';
 import { ChakraProvider, CSSReset } from '@chakra-ui/react';
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import '../styles/globals.css'
 
 
 function MyApp({ Component, pageProps }) {

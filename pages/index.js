@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <Layout>
       <Flex>
-        <Box w={500} p={4} my={12} mx='auto'>
+        <Box w={500} rounded={'20'} p={4} my={12} mx='auto'>
           {turfs.map((item) =>(
             <Link href={'/' + item.id} key={item.id}>
             <Box w={300} p={4} my={12} mx='auto' bg='tomato'>

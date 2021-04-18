@@ -20,7 +20,7 @@ export default function Layout ({children}){
     return(
         <>
             <WithSubnavigation />
-            <Flex as='main' mt={'70px'} justifyContent='center' flexDirection='column' px={8}>
+            <Flex as='main' mt={'70px'} justifyContent='center' flexDirection='column'>
                 {children}
             </Flex>
         </>
