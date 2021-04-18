@@ -11,6 +11,7 @@ import moment from 'moment';
 import emailjs from 'emailjs-com';
 import Layout from '../components/Container';
 import CheckoutForm from "../components/CheckoutForm";
+import CheckoutForm1 from '../components/CheckoutForm1';
 import Stripe from "stripe";
 
 
@@ -18,7 +19,7 @@ import Stripe from "stripe";
 
 import { Box, Flex, Text, Button, Input, FormControl, FormLabel, FormHelperText, Stack, Heading, useToast, Linkst, Select,
                 AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogCloseButton, AlertDialogBody,
-                AlertDialogFooter, useDisclosure  } from "@chakra-ui/react";
+                AlertDialogFooter, useDisclosure,Container  } from "@chakra-ui/react";
 
 function Details ({name,location,bookings,id,url,email,price,adminEmail,paymentIntent, facilities}) {
     
@@ -189,7 +190,9 @@ function Details ({name,location,bookings,id,url,email,price,adminEmail,paymentI
                     </Select>
                     
                     <Button onClick={onOpen} isDisabled={ date1 === '' } >Book Now</Button>
+                    <Container maxW={'container.lg'}>
                     <AlertDialog
+                    mt={10}
                         motionPreset="slideInBottom"
                         leastDestructiveRef={cancelRef}
                         onClose={onClose}
@@ -203,7 +206,7 @@ function Details ({name,location,bookings,id,url,email,price,adminEmail,paymentI
                         <AlertDialogCloseButton />
                         <AlertDialogBody>
                             Are you sure you want to proceed with booking? Once booked it wont be cancelled.
-                            <CheckoutForm paymentIntent={paymentIntent} setPaymentDone={setPaymentDone}/>
+                            <CheckoutForm1 paymentIntent={paymentIntent} setPaymentDone={setPaymentDone}/>
                         </AlertDialogBody>
                         <AlertDialogFooter>
                             <Button ref={cancelRef} onClick={onClose}>
@@ -212,6 +215,7 @@ function Details ({name,location,bookings,id,url,email,price,adminEmail,paymentI
                         </AlertDialogFooter>
                         </AlertDialogContent>
                     </AlertDialog>
+                    </Container>
 
                 </FormControl>
             </Box>
