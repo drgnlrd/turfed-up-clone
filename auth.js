@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext, createContext} from 'react';
 import nookies from 'nookies';
-import firebaseClient from './firebaseClient';
+import firebaseClient from './lib/firebaseClient';
 import firebase from 'firebase';
 import 'firebase/auth';
 
