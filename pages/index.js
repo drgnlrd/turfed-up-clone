@@ -22,7 +22,10 @@ import {
   chakra,
   Image,
   Icon,
-  useColorModeValue } from "@chakra-ui/react";
+  useColorModeValue,
+  SimpleGrid,
+  Container
+} from "@chakra-ui/react";
 
   import { FaRupeeSign } from 'react-icons/fa'
 
@@ -55,7 +58,9 @@ export default function Home() {
   return (
     <Layout>
       <Flex>
-        <Box w={500} p={8} rounded={'20'}my={12} mx='auto'>
+        <Box p={2} rounded={'20'} my={12} mx='auto'>
+          <Container maxW={'container.lg'} >
+          <SimpleGrid columns={[1,2]} spacing={10} >
           {turfs.map((item) =>(
             <Box
               key={item.id}
@@ -128,7 +133,8 @@ export default function Home() {
             
             ))}
 
-            
+            </SimpleGrid>
+            </Container>
             </Box>
         </Flex>
         

@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import {useAuth} from '../auth';
 import {useRouter} from 'next/router';
 import WithSubnavigation from './Nav';
+import Head from 'next/head';
 
 export default function Layout ({children}){
 
@@ -19,6 +20,9 @@ export default function Layout ({children}){
 
     return(
         <Box className={'main-bg'}>
+            <Head>
+                <title>Turfed Up!</title>
+            </Head>
             <WithSubnavigation />
             <Flex as='main' className={'glass'} bg={useColorModeValue('rgba( 255, 255, 255, 0.85 );','rgba( 0, 0, 0, 0.85 );')} minH={'100vh'} pt={'60px'} justifyContent='center' flexDirection='column'>
                 {children}

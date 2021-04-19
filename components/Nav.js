@@ -15,6 +15,7 @@ import {
     useBreakpointValue,
     useDisclosure,
     useColorMode,
+    Image
   } from '@chakra-ui/react';
 
   import {
@@ -62,16 +63,15 @@ import firebase from 'firebase';
             />
           </Flex>
           <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-            <Text
-              textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-              fontFamily={'heading'}
-              color={useColorModeValue('gray.800', 'white')}>
-              Logo
-            </Text>
+            
+              <Flex display={'flex'} mr={[0,3]} >
+                  {colorMode == "light" ? <Image src="/images/logo-light.png" h="60px" w="auto" /> : <Image src="/images/logo.png" h="60px" w="auto" /> }
+              </Flex>
+        
   
-            <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-              <DesktopNav />
-            </Flex>
+              <Flex display={['none','flex']} alignItems={'center'} ml={10}>
+                <DesktopNav />
+              </Flex>
           </Flex>
   
           <Stack
@@ -111,7 +111,7 @@ import firebase from 'firebase';
   
   const DesktopNav = () => {
     return (
-      <Stack direction={'row'} spacing={4}>
+      <Stack direction={'row'} spacing={4} alignItems={'center'} >
         {NAV_ITEMS.map((navItem) => (
           <Box key={navItem.label}>
             <Popover trigger={'hover'} placement={'bottom-start'}>
