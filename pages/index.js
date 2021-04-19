@@ -3,7 +3,7 @@ import firebaseCLient from '../firebaseCLient';
 import firebase from 'firebase';
 import 'firebase/auth';
 import 'firebase/firestore';
-import Link from 'next/Link';
+import Link from 'next/link';
 import Layout from '../components/Container';
 
 import { 
