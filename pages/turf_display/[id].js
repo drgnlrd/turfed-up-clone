@@ -37,6 +37,7 @@ import {
     AlertDialogFooter,
     InputLeftElement
 } from '@chakra-ui/react';
+import {useRouter} from 'next/router';
 
 import Carousel from '../../components/carousel';
 
@@ -73,6 +74,7 @@ import Stripe from "stripe";
 
 const KuttyHero = ({name,location,bookings,id,url,email,price,adminEmail,paymentIntent, facilities}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
 
   console.log(facilities[0].shower);
     firebaseClient();
@@ -206,7 +208,7 @@ const KuttyHero = ({name,location,bookings,id,url,email,price,adminEmail,payment
                     emailjs.send('service_qr4ri5c', 'template_cny1zke', emailToAdmin, 'user_gXqAxI680FcdwuvFzF1T2')
                 })
                 .then(() => {
-                    window.location.href='./success'
+                    router.push('/turf_display/success')
                 },);
         })
         }
