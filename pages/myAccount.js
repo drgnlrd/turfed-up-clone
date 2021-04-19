@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import firebaseClient from '../lib/firebaseClient';
+// import firebaseClient from '../lib/firebaseClient';
 import firebase from 'firebase';
 import 'firebase/auth';
 import 'firebase/firestore';
