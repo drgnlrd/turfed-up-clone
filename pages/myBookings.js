@@ -67,7 +67,7 @@ const temp = ({email}) => {
               textTransform={'uppercase'}
               fontSize={'3xl'}
               color={useColorModeValue('gray.800', 'gray.200')}>
-             Your Bookings:
+             My Bookings:
             </Heading>
           </Stack>
           <Stack spacing={4} direction={{ base: 'column', md: 'column' }} w={'full'}>
