@@ -236,7 +236,7 @@ const KuttyHero = ({name,location,bookings,id,url,email,price,adminEmail,payment
       }}
     >
     <Box
-      bg={'url("https://images.unsplash.com/photo-1531548731165-c6ae86ff6491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80") no-repeat'}
+      bg={'url("{url}") no-repeat'}
       bgSize={'cover'}
       bgPosition={'center'}
       h={'60vh'}
@@ -257,8 +257,8 @@ const KuttyHero = ({name,location,bookings,id,url,email,price,adminEmail,payment
       <Box alignSelf={'end'} w={'full'} minH={'120px'} bg={useColorModeValue('rgba( 255,255,255, 0.55 )','rgba( 0,0,0, 0.5)')} rounded={'30px'} pos={'absolute'} bottom={0} className={'glass'} px={3} py={5} >
           <Flex justify={'space-between'} >
               <Box>
-                <Text fontSize={'2xl'} fontWeight={'700'} >Name Of Turf</Text>
-                <Text>Location Of Turf</Text>
+                <Text fontSize={'2xl'} fontWeight={'700'} >{name}</Text>
+                <Text>{location}</Text>
               </Box>
               <Box>
                   <Stack gap={5} direction={'row'} mb={2}>
