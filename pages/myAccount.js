@@ -5,7 +5,7 @@ import firebase from 'firebase';
 import 'firebase/auth';
 import 'firebase/firestore';
 import nookies from "nookies";
-import {verifyIdToken} from '../firebaseAdmin';
+import {verifyIdToken} from '../lib/firebaseAdmin';
 import Layout from '../components/Container';
 
 import {
