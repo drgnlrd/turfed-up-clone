@@ -208,7 +208,7 @@ const KuttyHero = ({name,location,bookings,id,url,email,price,adminEmail,payment
                     emailjs.send('service_qr4ri5c', 'template_cny1zke', emailToAdmin, 'user_gXqAxI680FcdwuvFzF1T2')
                 })
                 .then(() => {
-                    router.push('/turf_display/success')
+                    window.location.href='./turf_display/success'
                 },);
         })
         }
