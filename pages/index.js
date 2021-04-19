@@ -88,7 +88,7 @@ export default function Home() {
                 as={'a'}
                   bgGradient="linear(to-r, red.500 ,orange.400)"
                   color={'white'}
-                  href={'/' + item.id}
+                  href={'/turf_display/' + item.id}
                   _hover={{
                     bgGradient: 'linear(to-r, red.600 ,orange.500)',
                     boxShadow: 'xl',
