@@ -71,7 +71,7 @@ import Stripe from "stripe";
 const KuttyHero = ({name,location,bookings,id,url,email,price,adminEmail,paymentIntent, facilities}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  console.log(facilities);
+  console.log(facilities[0].shower);
     firebaseCLient();
     const [ date1, SetDate1 ] = useState('');
     const [fetchedTime, setFetchedTime] = useState([]);
@@ -290,43 +290,52 @@ const KuttyHero = ({name,location,bookings,id,url,email,price,adminEmail,payment
         py={[10,24]}
       >
       <SimpleGrid columns={2} spacing={3} w={'100%'}>
-          <Badge bg={'rgba(150,34,40,0.2)'} w={'full'} border={'1px solid'} borderColor={useColorModeValue('rgba(255,255,255,0.7)','rgba(0,0,0,0.6)')} rounded={'10px'} height="60px">
+          <Badge bg={facilities[0].bibs? 'rgba(150,34,40,0.7)': 'rgba(150,34,40,0.2)'} 
+          boxShadow={facilities[0].bibs? '0px 0px 40px 0px rgba(150,34,40,0.6)' : null} w={'full'} border={'1px solid'} borderColor={useColorModeValue('rgba(255,255,255,0.7)','rgba(0,0,0,0.6)')} rounded={'10px'} height="60px">
             <Flex justify={'center'} textAlign={'center'} alignItems={'center'} direction={'row'} h={'100%'}>
               <Icon as={IoIosShirt} w={6} h={6} mr={3} />
               <Text>Bibs</Text>
             </Flex>
           </Badge>
-          <Badge bg={'rgba(150,34,40,0.2)'} w={'full'} border={'1px solid'} borderColor={useColorModeValue('rgba(255,255,255,0.7)','rgba(0,0,0,0.6)')} rounded={'10px'} height="60px">
+          <Badge bg={facilities[0].shower? 'rgba(150,34,40,0.7)': 'rgba(150,34,40,0.2)'} 
+          boxShadow={facilities[0].shower? '0px 0px 40px 0px rgba(150,34,40,0.6)' : null} w={'full'} border={'1px solid'} borderColor={useColorModeValue('rgba(255,255,255,0.7)','rgba(0,0,0,0.6)')} rounded={'10px'} height="60px">
             <Flex justify={'center'} textAlign={'center'} alignItems={'center'} direction={'row'} h={'100%'}>
               <Icon as={FaShower} w={6} h={6} mr={3} />
               <Text>Shower</Text>
             </Flex>
           </Badge>
-          <Badge bg={'rgba(150,34,40,0.2)'} w={'full'} border={'1px solid'} borderColor={useColorModeValue('rgba(255,255,255,0.7)','rgba(0,0,0,0.6)')} rounded={'10px'} height="60px">
+          <Badge bg={facilities[0].football? 'rgba(150,34,40,0.7)': 'rgba(150,34,40,0.2)'} 
+          boxShadow={facilities[0].football? '0px 0px 40px 0px rgba(150,34,40,0.6)' : null} w={'full'} border={'1px solid'} borderColor={useColorModeValue('rgba(255,255,255,0.7)','rgba(0,0,0,0.6)')} rounded={'10px'} height="60px">
             <Flex justify={'center'} textAlign={'center'} alignItems={'center'} h={'100%'}>
               <Icon as={IoMdFootball} w={6} h={6} mr={3} />
               <Text>Football</Text>
             </Flex>
           </Badge>
-          <Badge bg={'rgba(150,34,40,0.2)'} w={'full'} border={'1px solid'} borderColor={useColorModeValue('rgba(255,255,255,0.7)','rgba(0,0,0,0.6)')} rounded={'10px'} height="60px">
+          <Badge bg={facilities[0].parking? 'rgba(150,34,40,0.7)': 'rgba(150,34,40,0.2)'} w={'full'} 
+          boxShadow={facilities[0].parking? '0px 0px 40px 0px rgba(150,34,40,0.6)' : null} border={'1px solid'} borderColor={useColorModeValue('rgba(255,255,255,0.7)','rgba(0,0,0,0.6)')} rounded={'10px'} height="60px">
             <Flex justify={'center'} textAlign={'center'} alignItems={'center'} h={'100%'}>
               <Icon as={FaParking} w={6} h={6} mr={3} />
               <Text>Parking</Text>
             </Flex>
           </Badge>
-          <Badge bg={'rgba(150,34,40,0.2)'} w={'full'} border={'1px solid'} borderColor={useColorModeValue('rgba(255,255,255,0.7)','rgba(0,0,0,0.6)')} rounded={'10px'} height="60px">
+          <Badge bg={facilities[0].stumps? 'rgba(150,34,40,0.7)': 'rgba(150,34,40,0.2)'} 
+          boxShadow={facilities[0].stumps? '0px 0px 40px 0px rgba(150,34,40,0.6)' : null} w={'full'} border={'1px solid'} borderColor={useColorModeValue('rgba(255,255,255,0.7)','rgba(0,0,0,0.6)')} rounded={'10px'} height="60px">
             <Flex justify={'center'} textAlign={'center'} alignItems={'center'} h={'100%'}>
               <Icon as={BsConeStriped} w={6} h={6} mr={3} />
               <Text>Stumps</Text>
             </Flex>
           </Badge>
-          <Badge bg={'rgba(150,34,40,0.7)'} w={'full'} border={'1px solid'} borderColor={useColorModeValue('rgba(255,255,255,0.7)','rgba(0,0,0,0.6)')} rounded={'10px'} height="60px"
-          boxShadow={'0px 0px 40px 0px rgba(150,34,40,0.6)'} color={'white'}>
+            <Badge bg={facilities[0].washroom? 'rgba(150,34,40,0.7)': 'rgba(150,34,40,0.2)'} w={'full'} border={'1px solid'} 
+                  borderColor={useColorModeValue('rgba(255,255,255,0.7)','rgba(0,0,0,0.6)')} rounded={'10px'} height="60px"
+              boxShadow={facilities[0].washroom? '0px 0px 40px 0px rgba(150,34,40,0.6)' : null} color={'white'}>
             <Flex justify={'center'} textAlign={'center'} alignItems={'center'} direction={'row'} h={'100%'}>
               <Icon color="white" as={FaRestroom} w={6} h={6} mr={3} />
               <Text>Washroom</Text>
             </Flex>
           </Badge>
+                
+
+          
           
           
       </SimpleGrid>
@@ -343,8 +352,7 @@ const KuttyHero = ({name,location,bookings,id,url,email,price,adminEmail,payment
           Book Now
         </chakra.h1>
         <chakra.form w="full" mb={6}>
-          <VisuallyHidden>Your Email</VisuallyHidden>
-          <Box display={{ base: "block", lg: "none" }}>
+          <Box display={{ base: "block", lg: "block" }}>
           <Input 
         as={DatePicker} 
         id={"date"} 
@@ -384,7 +392,7 @@ const KuttyHero = ({name,location,bookings,id,url,email,price,adminEmail,payment
               Proceed to checkout
             </Button>
           </Box>
-          <InputGroup size="lg" w="full" display={{ base: "none", lg: "flex" }}>
+          <InputGroup size="lg" w="full" display={{ base: "none", lg: "none" }}>
             <Input
               size="lg"
               color="brand.900"
@@ -495,7 +503,7 @@ export const getServerSideProps = async (context) =>{
     };
   }
   paymentIntent = await stripe.paymentIntents.create({
-      amount: 1000,
+      amount: content.price *100,
       currency: "inr"
     });
   

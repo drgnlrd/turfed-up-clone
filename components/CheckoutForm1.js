@@ -230,7 +230,7 @@ const checkoutForm1 = ({ paymentIntent,setPaymentDone }) => {
                   fontWeight="md"
                   isLoading={isProcessing == true ? true : false}
                 >
-                  Place Order
+                  Book Now
                 </Button>
               </Box>
               </chakra.form>

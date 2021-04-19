@@ -275,7 +275,7 @@ import firebase from 'firebase';
       icon: MdInsertInvitation
     },
     {
-        label: 'About Us',
+        label: 'Contact Us',
         href: '/aboutUs',
         icon: MdInfo
         
