@@ -13,7 +13,8 @@ import {
     useColorModeValue,
     createIcon,
     Container,
-    useToast
+    useToast,
+    Textarea
   } from '@chakra-ui/react';
   
   export default function CardWithIllustration() {
@@ -116,6 +117,17 @@ import {
                 outline: 'none',
               }}
             />
+            <Textarea placeholder="Write your message here" onChange={(e) => setMessage(e.target.value)} 
+              color={useColorModeValue('gray.800', 'gray.200')}
+              bg={useColorModeValue('gray.100', 'gray.600')}
+              rounded={'full'}
+              border={0}
+              _focus={{
+                bg: useColorModeValue('gray.200', 'gray.800'),
+                outline: 'none',
+              }}
+            />
+            
             <Button onClick={handleSubmit} disabled={mobile === '' || name === '' || email === ''}
               fontFamily={'heading'}
                 mt={8}

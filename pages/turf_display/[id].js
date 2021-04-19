@@ -236,7 +236,7 @@ const KuttyHero = ({name,location,bookings,id,url,email,price,adminEmail,payment
       }}
     >
 
-    // url has the download link of a turf image from firebase you can use it!
+    {/* url has the download link of a turf image from firebase you can use it! */}
     <Box
       bg={'url("https://images.unsplash.com/photo-1531548731165-c6ae86ff6491?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80") no-repeat'}
       bgSize={'cover'}

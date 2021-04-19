@@ -35,6 +35,7 @@ import {
     const [otp, setOtp] = useState("");
     const [verifyId, setVerifyId] = useState("");
     const [random, setRandom] = useState(0);
+    const [email_v,setEmail_v] = useState(0);
 
     const avatar = ['https://firebasestorage.googleapis.com/v0/b/turfedup-1a8ee.appspot.com/o/avatar%2F03408ed47e6eb2c1f94d98b888692a9a.png?alt=media&token=91f4222a-ace9-4035-a532-ed7dc6b9885e',
                     'https://firebasestorage.googleapis.com/v0/b/turfedup-1a8ee.appspot.com/o/avatar%2F0DltHI.webp?alt=media&token=fb3b07b7-c029-413d-9d87-9081c3a03f34',
@@ -67,7 +68,6 @@ import {
    }
 
     const handleSubmit = async() => {
-      console.log(verifyId);
       if(otp == verifyId) {
           await firebase.auth().createUserWithEmailAndPassword(email,pass).then(() => {
               db.collection('userData').add({
@@ -90,7 +90,6 @@ import {
                   isClosed: true
               });
           });
-          console.log('otp verified');
       } 
       else {
           alert('wrong otp!!');
@@ -214,9 +213,34 @@ import {
                     aria-describedby='email-helper-text'
                 />
                 </FormControl>
+                <Button
+                fontFamily={'heading'}
+                mt={8}
+                w={'full'}
+                bgGradient="linear(to-r, red.500 ,orange.400)"
+                color={'white'}
+                _hover={{
+                  bgGradient: 'linear(to-r, red.600 ,orange.500)',
+                  boxShadow: 'xl',
+                }}
+                isDisabled={email === '' || pass === '' || name === '' || mobile === ''} 
+                onClick = {() => {
+                    emailjs.send('service_z6cltgd', 'template_jtkla8g', emailToUser, 'user_2aLKtYP7rnIjbt16dV8lj').then((msg) => {
+                      toast({
+                        title: 'Email Otp has been sent, please check!',
+                        descripion: msg,
+                        status: 'success',
+                        duration: 9000,
+                        isClosed: true
+                      })
+                      setEmail_v(1);
+                    })
+                }}>
+                Generate OTP
+              </Button>
                 <FormControl isRequired>
                 <Input
-                  placeholder="Generate OTP"
+                  placeholder="Enter OTP"
                   bg={'gray.100'}
                   border={0}
                   color={'gray.500'}
@@ -231,22 +255,7 @@ import {
                 />
                 </FormControl>
               </Stack>
-              <Button
-                fontFamily={'heading'}
-                mt={8}
-                w={'full'}
-                bgGradient="linear(to-r, red.500 ,orange.400)"
-                color={'white'}
-                _hover={{
-                  bgGradient: 'linear(to-r, red.600 ,orange.500)',
-                  boxShadow: 'xl',
-                }}
-                isDisabled={email === '' || pass === '' || name === '' || mobile === ''} 
-                onClick = {() => {
-                    emailjs.send('service_z6cltgd', 'template_jtkla8g', emailToUser, 'user_2aLKtYP7rnIjbt16dV8lj')
-                }}>
-                Generate OTP
-              </Button>
+              
               <Button
               fontFamily={'heading'}
                 mt={8}
@@ -382,9 +391,34 @@ import {
                     aria-describedby='email-helper-text'
                 />
                 </FormControl>
+                <Button
+                fontFamily={'heading'}
+                mt={8}
+                w={'full'}
+                bgGradient="linear(to-r, red.500 ,orange.400)"
+                color={'white'}
+                _hover={{
+                  bgGradient: 'linear(to-r, red.600 ,orange.500)',
+                  boxShadow: 'xl',
+                }}
+                isDisabled={email === '' || pass === '' || name === '' || mobile === ''} 
+                onClick = {() => {
+                    emailjs.send('service_z6cltgd', 'template_jtkla8g', emailToUser, 'user_2aLKtYP7rnIjbt16dV8lj')
+                    .then((msg) => {
+                      toast({
+                        title: 'Email Otp has been sent, please check!',
+                        descripion: msg,
+                        status: 'success',
+                        duration: 9000,
+                        isClosed: true
+                      })
+                    })
+                }}>
+                Generate OTP
+              </Button>
                 <FormControl isRequired>
                 <Input
-                  placeholder="Generate OTP"
+                  placeholder="Enter OTP"
                   bg={'gray.100'}
                   border={0}
                   color={'gray.500'}
@@ -399,22 +433,7 @@ import {
                 />
                 </FormControl>
               </Stack>
-              <Button
-                fontFamily={'heading'}
-                mt={8}
-                w={'full'}
-                bgGradient="linear(to-r, red.500 ,orange.400)"
-                color={'white'}
-                _hover={{
-                  bgGradient: 'linear(to-r, red.600 ,orange.500)',
-                  boxShadow: 'xl',
-                }}
-                isDisabled={email === '' || pass === '' || name === '' || mobile === ''} 
-                onClick = {() => {
-                    emailjs.send('service_z6cltgd', 'template_jtkla8g', emailToUser, 'user_2aLKtYP7rnIjbt16dV8lj')
-                }}>
-                Generate OTP
-              </Button>
+              
               <Button
               fontFamily={'heading'}
                 mt={8}
