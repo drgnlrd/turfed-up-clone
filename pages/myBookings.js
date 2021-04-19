@@ -18,7 +18,7 @@ import {
   import React,{ useState, useEffect} from 'react';
 import nookies from "nookies";
 import {verifyIdToken} from '../lib/firebaseAdmin';
-// import firebaseClient from '../lib/firebaseClient';
+import firebaseClient from '../lib/firebaseClient';
 import 'firebase/auth';
 import firebase from 'firebase';
 import 'firebase/firestore';
