@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import firebaseClient from '../../lib/firebaseClient';
+import firebaseClient from '../../lib/firebaseClient';
 import firebase from 'firebase';
 import 'firebase/auth';
 import 'firebase/firestore';
@@ -75,7 +75,7 @@ const KuttyHero = ({name,location,bookings,id,url,email,price,adminEmail,payment
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   console.log(facilities[0].shower);
-    firebaseCLient();
+    firebaseClient();
     const [ date1, SetDate1 ] = useState('');
     const [fetchedTime, setFetchedTime] = useState([]);
     const [p, setP] = useState(0);

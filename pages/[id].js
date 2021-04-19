@@ -24,7 +24,7 @@ import { Box, Flex, Text, Button, Input, FormControl, FormLabel, FormHelperText,
 function Details ({name,location,bookings,id,url,email,price,adminEmail,paymentIntent, facilities}) {
     
     console.log(facilities);
-    firebaseCLient();
+    firebaseClient();
     const [ date1, SetDate1 ] = useState('');
     const [fetchedTime, setFetchedTime] = useState([]);
     const [p, setP] = useState(0);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import firebaseClient from '../../lib/firebaseClient';
+import firebaseClient from '../../lib/firebaseClient';
 import firebase from 'firebase';
 import 'firebase/auth';
 import 'firebase/firestore';
@@ -28,7 +28,7 @@ function renderTurf(){
 }
 
  const displayTurf = () => {
-    firebaseCLient();
+    firebaseClient();
     
     const turfs = renderTurf();
     console.log(turfs);
